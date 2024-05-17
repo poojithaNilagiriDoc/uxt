@@ -1,0 +1,154 @@
+{
+  "name": "uxt-react",
+  "version": "7.119.1",
+  "description": "UXT for React",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://dev.azure.com/hexagonPPMInnerSource/uxt/_git/uxt-react"
+  },
+  "publishConfig": {
+    "registry": "https://pkgs.dev.azure.com/hexagonPPMInnerSource/_packaging/PPM/npm/registry/"
+  },
+  "scripts": {
+    "refreshVSToken": "vsts-npm-auth -config .npmrc",
+    "tsc": "tsc",
+    "build": "yarn tsc && yarn copydts && yarn generateScssThemes",
+    "clean": "rimraf components services themes hooks",
+    "copydts": "copyfiles -u 1 \"src/**/*.d.ts\" .",
+    "generateScssThemes": "ts-node ./scripts/generateScssTheme \"dark\" && ts-node ./scripts/generateScssTheme \"light\"",
+    "lint": "eslint src/**/*.tsx --fix && prettier --write \"src/**/*.{ts,tsx}\" && tsc --noEmit",
+    "postpublish": "yarn clean",
+    "prebuild": "yarn clean",
+    "prepublish": "yarn build",
+    "prestart": "yarn clean",
+    "postversion": "git status && git add . && git commit -m \"updated version to version $npm_package_version [skip ci]\"",
+    "release:major": "yarn version --major --no-git-tag-version && yarn publish --non-interactive && git push",
+    "release:minor": "yarn version --minor --no-git-tag-version && yarn publish --non-interactive && git push",
+    "release:patch": "yarn version --patch --no-git-tag-version && yarn publish --non-interactive && git push",
+    "release:beta": "yarn publish --tag beta",
+    "start": "start-storybook -p 6006",
+    "test": "jest",
+    "build-storybook": "build-storybook",
+    "storybook": "start-storybook -p 6006"
+  },
+  "dependencies": {
+    "@material-ui/core": "~4.8.0",
+    "@material-ui/styles": "~4.8.0",
+    "@types/d3": "^7.4.0",
+    "classnames": "^2.2.6",
+    "color": "^4.2.1",
+    "d3": "^7.6.1",
+    "date-fns": "^2.28.0",
+    "deepmerge": "^3.2.0",
+    "dompurify": "^2.2.6",
+    "framer-motion": "^1.6.3",
+    "hoist-non-react-statics": "^3.3.0",
+    "lodash": "^4.17.21",
+    "polished": "^3.4.0",
+    "react-draggable": "^4.1.0",
+    "react-measure": "^2.5.2",
+    "react-resize-detector": "^6.7.6",
+    "react-responsive": "^8.2.0",
+    "react-virtualized": "9.21.1",
+    "react-window": "^1.8.6",
+    "react-window-infinite-loader": "^1.0.8",
+    "uuid": "^8.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@date-io/date-fns": "^2.14.0",
+    "@material-ui/pickers": "^3.3.10",
+    "@material-ui/types": "^5.1.0",
+    "@storybook/addon-actions": "^6.4.8",
+    "@storybook/addon-essentials": "^6.4.8",
+    "@storybook/addon-knobs": "^6.3.1",
+    "@storybook/addon-links": "^6.4.8",
+    "@storybook/builder-webpack5": "^6.4.8",
+    "@storybook/manager-webpack5": "^6.4.8",
+    "@storybook/react": "^6.4.8",
+    "@types/babel__core": "^7.1.15",
+    "@types/deepmerge": "^2.2.0",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^12.12.0",
+    "@types/react": "^16.14.14",
+    "@types/react-dom": "^16.9.14",
+    "@types/react-virtualized": "^9.21.11",
+    "@types/react-window": "^1.8.2",
+    "@types/react-window-infinite-loader": "^1.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-macros": "^2.5.1",
+    "copyfiles": "^2.4.1",
+    "core-js": "^3.8.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "eslint": "^8.4.1",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^4.3.8",
+    "jest": "^26.6.3",
+    "jest-canvas-mock": "^2.3.1",
+    "prettier": "^2.2.1",
+    "react": "^16.14.0",
+    "react-docgen-typescript-loader": "^3.7.2",
+    "react-dom": "^16.14.0",
+    "react-is": "^17.0.1",
+    "react-test-renderer": "^16.8.6",
+    "react-use": "^12.2.0",
+    "require-context.macro": "^1.0.4",
+    "treecko": "^3.1.0",
+    "ts-jest": "^26.5.6",
+    "ts-loader": "^6.0.4",
+    "ts-node": "^8.3.0",
+    "typescript": "^4.4.2",
+    "uxt-graphics": "^1.72.0",
+    "webpack": "^5.52.0"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "uxt-graphics": "^1.72.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn lint && yarn test"
+    }
+  },
+  "jest": {
+    "setupFiles": [
+      "jest-canvas-mock"
+    ]
+  },
+  "resolutions": {
+    "**/@types/react": "^16.9.0",
+    "**/@material-ui/core": "~4.8.0",
+    "**/@material-ui/styles": "~4.8.0",
+    "**/@material-ui/types": "~4.1.1",
+    "**/@material-ui/system": "~4.7.1"
+  },
+  "contributors": [
+    {
+      "name": "Keith Harvey",
+      "email": "keith.harvey@hexagon.com"
+    },
+    {
+      "name": "Harsha Manthravadi",
+      "email": "harsha.manthravadi@hexagon.com"
+    },
+    {
+      "name": "Mahesh Reddy",
+      "email": "mahesh.myadadha@hexagon.com"
+    },
+    {
+      "name": "Satvika Yenigalla",
+      "email": "satvika.yenigalla@hexagon.com"
+    }
+  ]
+}

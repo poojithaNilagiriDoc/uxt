@@ -1,0 +1,12 @@
+{
+  "extends": "react-app",
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "import/order": 2,
+    "@typescript-eslint/no-angle-bracket-type-assertion": 0,
+    "react-hooks/exhaustive-deps": 0
+  }
+}
